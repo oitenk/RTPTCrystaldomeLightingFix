@@ -61,9 +61,10 @@ SKIP_APPEARANCE = re.compile(r"holog", re.I)
 # black patches. So here the stand-in sits just inside the glass, where it is what you see
 # from the seat: it takes the dark dome's own metal look, and casts no shadow (the cars'
 # see-through window layers already shade the cabin).
+# The Caliburn is built the same way but stays outside: moved inside, its strongly curved
+# windscreen left thin gaps of light at the frame (tested 2026-11-07), and outside it tested fine.
 INSIDE_APPS = {
     r"base\vehicles\appearances\sport\rayfield_aerondight__basic.app",
-    r"base\vehicles\appearances\sport\rayfield_caliburn__basic.app",
 }
 
 # metal_base textures copying the dark dome look (crystal_dome_consumer.mi, tiled 5 times like it).

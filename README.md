@@ -20,7 +20,7 @@ Flying vehicles are left out for now. The Yaiba Semimaru, Chevalier Legatus and 
 
 The dark dome panels are drawn with a special effect material. Ray-traced reflections look straight through it, so a dashboard or seat reflects the street outside. For each dark panel the mod adds a copy of the panel's shape with an ordinary dark, matte material, 5 mm further out. From the seat you still see the game's own panel in front of it.
 
-On the Rayfield Aerondight and Caliburn the dark dome layer is the outer window itself, and a surface outside it would show up in the glass's ray-traced reflections. There the copy sits 5 mm inside the glass instead, with the dome's own dark metal textures, since it is what you see from the seat.
+On the Rayfield Aerondight the dark dome layer is the outer window itself, and a surface outside it would show up in the glass's ray-traced reflections. There the copy sits 5 mm inside the glass instead, with the dome's own dark metal textures, since it is what you see from the seat. (The Caliburn is built the same way, but its copies stay outside: inside, its curved windscreen left gaps at the frame.)
 
 The surfaces follow the game's own dome switch: they hide the moment the dome turns on, and come back once it has finished turning off.
 
