@@ -145,13 +145,41 @@ def main():
         walk(load(jp), grab)
         mesh_mats[p] = sorted(mats)
 
+    # 4. follow every external material (.mi) back to its shader (.mt / .remt): a car can have
+    #    its own dome material built on a shared one (the Caliburn's fx_crystaldome_caliburn.mi).
+    shader_of = {}
+    pending = {m for ms in mesh_mats.values() for m in ms if m.endswith(".mi")}
+    while pending:
+        unbundle("^(" + "|".join(re.escape(p) for p in sorted(pending)) + ")$", raw)
+        serialize_tree(raw, js)
+        nxt = set()
+        for m in pending:
+            jp = json_path(js, m)
+            base = None
+            if os.path.exists(jp):
+                root = load(jp)["Data"]["RootChunk"]
+                base = val(root.get("baseMaterial"))
+            shader_of[m] = base
+            if isinstance(base, str) and base.endswith(".mi") and base not in shader_of:
+                nxt.add(base)
+        pending = nxt
+
+    def final_shader(m):
+        seen = set()
+        while isinstance(m, str) and m.endswith(".mi") and m not in seen:
+            seen.add(m)
+            m = shader_of.get(m)
+        return m or ""
+
+    mesh_shaders = {p: sorted({final_shader(m) for m in ms}) for p, ms in mesh_mats.items()}
+
     def dome_kind(mesh):
-        mats = " ".join(mesh_mats.get(mesh, []))
-        if "crystal_dome_opaque_backface" in mats:
+        shaders = " ".join(mesh_shaders.get(mesh, []))
+        if "crystal_dome_opaque_backface" in shaders:
             return "dark-backface"
-        if "crystal_dome_opaque" in mats or "crystal_dome.mi" in mats or "crystal_dome_consumer.mi" in mats:
+        if "crystal_dome_opaque" in shaders:
             return "dark"
-        if "crystal_dome" in mats:
+        if "crystal_dome.mt" in shaders:
             return "clear"
         return None
 
@@ -169,7 +197,7 @@ def main():
             car["apps"][app] = {"entity_appearances": sorted(set(names)), "panels": per}
         result[ent] = car
     with open(os.path.join(WORK, "dome_cars.json"), "w", encoding="utf-8") as f:
-        json.dump({"cars": result, "mesh_materials": mesh_mats}, f, indent=1)
+        json.dump({"cars": result, "mesh_materials": mesh_mats, "mesh_shaders": mesh_shaders}, f, indent=1)
 
     for ent, car in result.items():
         print(ent)

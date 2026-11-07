@@ -19,6 +19,7 @@ return {
     "cdlf_v_sport1_rayfield_aerondight__ext01_window_f",
     "cdlf_v_sport1_rayfield_aerondight__ext01_window_fl",
     "cdlf_v_sport1_rayfield_aerondight__ext01_window_fr",
+    "cdlf_window_f_b",
     "cdlf_window_f_l_b",
     "cdlf_window_f_m_b",
     "cdlf_window_f_ml_b",
@@ -26,8 +27,10 @@ return {
     "cdlf_window_f_ol_b",
     "cdlf_window_f_or_b",
     "cdlf_window_f_r_b",
+    "cdlf_window_fl_b",
     "cdlf_window_fl_b_b",
     "cdlf_window_fl_f_b",
+    "cdlf_window_fr_b",
     "cdlf_window_fr_b_b",
     "cdlf_window_fr_f_b",
 }

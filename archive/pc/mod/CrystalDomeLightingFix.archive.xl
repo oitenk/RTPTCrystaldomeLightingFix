@@ -6,6 +6,8 @@ resource:
       - base\vehicles\appearances\sport\quadra_type66_nomad.app
     crystal_dome_lighting_fix\patches\base_rayfield_aerondight__basic.app:
       - base\vehicles\appearances\sport\rayfield_aerondight__basic.app
+    crystal_dome_lighting_fix\patches\base_rayfield_caliburn__basic.app:
+      - base\vehicles\appearances\sport\rayfield_caliburn__basic.app
     crystal_dome_lighting_fix\patches\base_archer_quartz_nomad.app:
       - base\vehicles\appearances\standard\archer_quartz_nomad.app
     crystal_dome_lighting_fix\patches\base_militech_hellhound__basic.app:
