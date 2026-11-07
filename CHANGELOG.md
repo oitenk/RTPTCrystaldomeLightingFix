@@ -1,7 +1,7 @@
 # Changelog
 
-## Unreleased (test build)
+## 1.0.0
 
-NEW! Opaque surfaces behind the dark Crystal Dome panels, shown while the dome is off, so ray-traced reflections no longer show the world outside through the panels.
+Initial release: opaque surfaces behind the dark Crystal Dome panels, shown while the dome is off, so ray-traced reflections no longer show the world outside through the panels. Turning the dome on hides them again.
 
-Covers the Militech Hellhound, the Herrera Outlaw "Weiler", the Rayfield Aerondight and Caliburn, the Nomad cars and the Phantom Liberty militia and Behemoth vehicles.
+Covers the Militech Hellhound, the Herrera Outlaw "Weiler", the Rayfield Aerondight and Caliburn, the Nomad cars, and Phantom Liberty's Kurtz militia vehicles and Militech Behemoth, for the player and for NPCs.

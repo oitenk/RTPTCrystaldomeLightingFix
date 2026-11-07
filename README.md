@@ -2,7 +2,7 @@
 
 A Cyberpunk 2077 mod for cars with a Crystal Dome. With the dome off, the panels around the cabin look solid, but with ray-traced reflections the cabin still picks up the bright world outside, as if the panels were clear glass. This mod puts a plain, opaque surface just outside each dark panel while the dome is off, so reflections stop there. When you turn the dome on, the surfaces disappear and the see-through look is as before.
 
-**Status: test build.** Tested in the Hellhound, the Weiler, a Nomad car, the Aerondight and the Caliburn.
+Tested on game version 2.5 in the Hellhound, the Weiler, a Nomad car, the Aerondight and the Caliburn, in first person with path tracing and with ray-traced reflections.
 
 ## Covered vehicles
 
@@ -34,6 +34,8 @@ Install with a mod manager, or extract the zip into your Cyberpunk 2077 folder.
 ## Building
 
 `tools/survey_dome_cars.py` finds every vehicle with a Crystal Dome and its dark panels (by the shader each panel's material is built on). `tools/build_archive.py` then makes the archive from the game's own files with the [WolvenKit](https://github.com/WolvenKit/WolvenKit) command line (no game files are kept in this repo). `tools/verify_archive.py` checks the result. `tools/compile.sh` test-compiles the script outside the game folder. `tools/make_zip.py` builds the zip in `dist/`.
+
+`bin/x64/plugins/cyber_engine_tweaks/mods/CrystalDomeLightingFixTest` holds two Cyber Engine Tweaks hotkeys used while testing (switch the surfaces on and off, and report where each one sits). They are not part of the release zip; `python -I tools/make_zip.py --test` adds them.
 
 ## Credits
 
