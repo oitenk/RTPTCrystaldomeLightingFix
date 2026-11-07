@@ -1,4 +1,4 @@
-"""Build dist/CrystalDomeLightingFix.zip from the mod folders (game-root layout).
+"""Build dist/RTPTCrystaldomeLightingFix.zip from the mod folders (game-root layout).
 
 usage: python -I tools/make_zip.py          release zip
        python -I tools/make_zip.py --test   also includes the CET test hotkey
@@ -23,7 +23,7 @@ TEST_FILES = [
 def main():
     files = FILES + (TEST_FILES if "--test" in sys.argv else [])
     os.makedirs(os.path.join(ROOT, "dist"), exist_ok=True)
-    out = os.path.join(ROOT, "dist", "CrystalDomeLightingFix.zip")
+    out = os.path.join(ROOT, "dist", "RTPTCrystaldomeLightingFix.zip")
     with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as z:
         for f in files:
             z.write(os.path.join(ROOT, f), f)

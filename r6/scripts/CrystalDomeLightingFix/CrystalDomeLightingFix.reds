@@ -1,9 +1,9 @@
-// Crystal Dome Lighting Fix
+// RT/PT Crystaldome Lighting Fix
 //
 // The dark Crystal Dome panels use an effect shader that ray-traced reflections
 // look straight through, so the cabin picks up the bright world outside. The
-// archive adds an opaque stand-in a few millimetres outside each dark panel
-// (components "cdlf_standin_*"). This script shows them while the dome is dark
+// archive adds an opaque stand-in a few millimetres from each dark panel
+// (components "cdlf_*"). This script shows them while the dome is dark
 // and hides them while it is see-through, following the game's own dome
 // switching (the same way the game toggles the Basilisk's canopy shadow).
 

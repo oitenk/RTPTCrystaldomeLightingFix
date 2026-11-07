@@ -1,4 +1,4 @@
--- Crystal Dome Lighting Fix: test hotkey (test builds only, not shipped).
+-- RT/PT Crystaldome Lighting Fix: test hotkey (test builds only, not shipped).
 -- Bind "Toggle dome stand-ins" in CET's Bindings tab. Each press flips the opaque
 -- stand-ins behind the dark dome panels of the car you are sitting in, so the cabin
 -- can be compared with and without them. Turning the dome on or off resets them.
@@ -9,7 +9,7 @@ registerHotkey("cdlf_toggle_standins", "Toggle dome stand-ins", function()
     local player = Game.GetPlayer()
     local vehicle = player and Game.GetMountedVehicle(player)
     if not vehicle then
-        print("[Crystal Dome Lighting Fix] Not in a vehicle.")
+        print("[RT/PT Crystaldome Lighting Fix] Not in a vehicle.")
         return
     end
     local found, show = 0, nil
@@ -22,9 +22,9 @@ registerHotkey("cdlf_toggle_standins", "Toggle dome stand-ins", function()
         end
     end
     if found == 0 then
-        print("[Crystal Dome Lighting Fix] No stand-ins on this car.")
+        print("[RT/PT Crystaldome Lighting Fix] No stand-ins on this car.")
     else
-        print(string.format("[Crystal Dome Lighting Fix] Stand-ins %s (%d panels).", show and "ON" or "OFF", found))
+        print(string.format("[RT/PT Crystaldome Lighting Fix] Stand-ins %s (%d panels).", show and "ON" or "OFF", found))
     end
 end)
 
@@ -38,14 +38,14 @@ registerHotkey("cdlf_report_standins", "Report dome stand-ins", function()
     local player = Game.GetPlayer()
     local vehicle = player and Game.GetMountedVehicle(player)
     if not vehicle then
-        print("[Crystal Dome Lighting Fix] Not in a vehicle.")
+        print("[RT/PT Crystaldome Lighting Fix] Not in a vehicle.")
         return
     end
     local right, forward, up = vehicle:GetWorldRight(), vehicle:GetWorldForward(), vehicle:GetWorldUp()
     local found = 0
     local okName, carName = pcall(function() return vehicle:GetDisplayName() end)
     local okDome, dome = pcall(function() return vehicle:GetVehiclePS():GetCrystalDomeState() end)
-    print("[Crystal Dome Lighting Fix] Report for " .. (okName and tostring(carName) or "?") ..
+    print("[RT/PT Crystaldome Lighting Fix] Report for " .. (okName and tostring(carName) or "?") ..
         ", dome on: " .. (okDome and tostring(dome) or "?"))
     for _, name in ipairs(names) do
         local standin = vehicle:FindComponentByName(CName.new(name))
@@ -65,5 +65,5 @@ registerHotkey("cdlf_report_standins", "Report dome stand-ins", function()
             spdlog.info(line)
         end
     end
-    print(string.format("[Crystal Dome Lighting Fix] %d stand-ins on this car.", found))
+    print(string.format("[RT/PT Crystaldome Lighting Fix] %d stand-ins on this car.", found))
 end)

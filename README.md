@@ -1,4 +1,4 @@
-# Crystal Dome Lighting Fix
+# RT/PT Crystaldome Lighting Fix
 
 A Cyberpunk 2077 mod for cars with a Crystal Dome. With the dome off, the panels around the cabin look solid, but with ray-traced reflections the cabin still picks up the bright world outside, as if the panels were clear glass. This mod puts a plain, opaque surface just outside each dark panel while the dome is off, so reflections stop there. When you turn the dome on, the surfaces disappear and the see-through look is as before.
 
@@ -32,6 +32,8 @@ The surfaces follow the game's own dome switch: they hide the moment the dome tu
 ## Install
 
 Install with a mod manager, or extract the zip into your Cyberpunk 2077 folder.
+
+The mod was called Crystal Dome Lighting Fix up to 1.0.1. The files it installs kept their names (`CrystalDomeLightingFix.archive` and the `CrystalDomeLightingFix` script folder), so a new version installs over an old one.
 
 ## Building
 
