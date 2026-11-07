@@ -56,6 +56,14 @@ SKIP_APPS = {
 # Holograms are see-through by design; an opaque panel would show on them.
 SKIP_APPEARANCE = re.compile(r"holog", re.I)
 
+# On these cars the dark dome layer is the outer window itself, so the stand-in sits just
+# outside the glass. Casting shadows it would drop black patches on the glass in low sun;
+# their see-through window layers already cast the cabin's shadow.
+NO_SHADOW_APPS = {
+    r"base\vehicles\appearances\sport\rayfield_aerondight__basic.app",
+    r"base\vehicles\appearances\sport\rayfield_caliburn__basic.app",
+}
+
 
 def run(*args):
     r = subprocess.run([WOLVENKIT, *args, "-v", "Minimal"], capture_output=True, text=True)
@@ -147,7 +155,7 @@ def fixed(v):
     return {"$type": "FixedPoint", "Bits": int(round(v * 131072))}
 
 
-def standin_component(template, name, mesh_path, offset, cruid):
+def standin_component(template, name, mesh_path, offset, cruid, shadows=True):
     """Copy of the panel's component: same parent and placement, our mesh, pushed out by offset."""
     c = copy.deepcopy(template)
     c["name"] = cname(name)
@@ -155,7 +163,7 @@ def standin_component(template, name, mesh_path, offset, cruid):
     c["mesh"] = depot(mesh_path)
     c["meshAppearance"] = cname("default")
     for k in ("castShadows", "castLocalShadows", "castRayTracedGlobalShadows"):
-        c[k] = "Always"
+        c[k] = "Always" if shadows else "Never"
     c["isEnabled"] = 1
     pos = c["localTransform"]["Position"]
     base = [pos[k]["Bits"] / 131072 for k in "xyz"]
@@ -280,7 +288,8 @@ def main():
             for p in panels:
                 name = PREFIX + p["name"]
                 cruid = cruids.setdefault(name, random.getrandbits(63))
-                comps.append(standin_component(by_name[p["name"]], name, standin_path(p["mesh"]), offsets[p["mesh"]], cruid))
+                comps.append(standin_component(by_name[p["name"]], name, standin_path(p["mesh"]), offsets[p["mesh"]], cruid,
+                                               shadows=app not in NO_SHADOW_APPS))
                 names.add(name)
             # Handle ids must be unique in the file: number the component list and the compiled copy apart.
             for c in comps:
