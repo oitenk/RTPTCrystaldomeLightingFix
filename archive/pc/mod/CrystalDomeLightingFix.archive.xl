@@ -1,0 +1,4 @@
+resource:
+  patch:
+    crystal_dome_lighting_fix\hellhound\hellhound_standins.app:
+      - ep1\vehicles\appearances\standard\militech_hellhound__basic.app

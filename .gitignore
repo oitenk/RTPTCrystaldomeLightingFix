@@ -1,0 +1,11 @@
+# Release zips are built from the source folders and attached to releases instead.
+dist/
+
+# Kept locally for reference only.
+_archive/
+
+# Screenshots and clips for the mod page.
+promo/
+
+# Python caches.
+__pycache__/
