@@ -3,7 +3,7 @@
 -- stand-ins behind the dark dome panels of the car you are sitting in, so the cabin
 -- can be compared with and without them. Turning the dome on or off resets them.
 
-local names = { "cdlf_standin_f", "cdlf_standin_fl", "cdlf_standin_fr", "cdlf_standin_bl", "cdlf_standin_br" }
+local names = require("names")   -- names.lua, written by tools/build_archive.py
 
 registerHotkey("cdlf_toggle_standins", "Toggle dome stand-ins", function()
     local player = Game.GetPlayer()

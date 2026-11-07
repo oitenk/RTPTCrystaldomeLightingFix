@@ -12,9 +12,11 @@ FILES = [
     "archive/pc/mod/CrystalDomeLightingFix.archive",
     "archive/pc/mod/CrystalDomeLightingFix.archive.xl",
     "r6/scripts/CrystalDomeLightingFix/CrystalDomeLightingFix.reds",
+    "r6/scripts/CrystalDomeLightingFix/StandInNames.reds",
 ]
 TEST_FILES = [
     "bin/x64/plugins/cyber_engine_tweaks/mods/CrystalDomeLightingFixTest/init.lua",
+    "bin/x64/plugins/cyber_engine_tweaks/mods/CrystalDomeLightingFixTest/names.lua",
 ]
 
 

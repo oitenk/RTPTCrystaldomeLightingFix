@@ -7,10 +7,8 @@
 // and hides them while it is see-through, following the game's own dome
 // switching (the same way the game toggles the Basilisk's canopy shadow).
 
-// Stand-in components added by CrystalDomeLightingFix.archive.
-private func CDLF_StandInNames() -> array<CName> {
-    return [n"cdlf_standin_f", n"cdlf_standin_fl", n"cdlf_standin_fr", n"cdlf_standin_bl", n"cdlf_standin_br"];
-}
+// The stand-in names (CDLF_StandInNames) are in StandInNames.reds, written by tools/build_archive.py.
+// A car only has the ones for its own panels; the rest are simply not found.
 
 @addMethod(VehicleComponent)
 private func CDLF_ShowStandIns(show: Bool) {

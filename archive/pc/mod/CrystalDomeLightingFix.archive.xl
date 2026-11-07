@@ -1,4 +1,30 @@
 resource:
   patch:
-    crystal_dome_lighting_fix\hellhound\hellhound_standins.app:
+    crystal_dome_lighting_fix\patches\base_mizutani_shion_nomad.app:
+      - base\vehicles\appearances\sport\mizutani_shion_nomad.app
+    crystal_dome_lighting_fix\patches\base_quadra_type66_nomad.app:
+      - base\vehicles\appearances\sport\quadra_type66_nomad.app
+    crystal_dome_lighting_fix\patches\base_rayfield_aerondight__basic.app:
+      - base\vehicles\appearances\sport\rayfield_aerondight__basic.app
+    crystal_dome_lighting_fix\patches\base_archer_quartz_nomad.app:
+      - base\vehicles\appearances\standard\archer_quartz_nomad.app
+    crystal_dome_lighting_fix\patches\base_militech_hellhound__basic.app:
+      - base\vehicles\appearances\standard\militech_hellhound__basic.app
+    crystal_dome_lighting_fix\patches\base_thorton_colby_pickup_nomad.app:
+      - base\vehicles\appearances\standard\thorton_colby_pickup_nomad.app
+    crystal_dome_lighting_fix\patches\base_thorton_galena_nomad.app:
+      - base\vehicles\appearances\standard\thorton_galena_nomad.app
+    crystal_dome_lighting_fix\patches\ep1_herrera_outlaw__heist.app:
+      - ep1\vehicles\appearances\sport\herrera_outlaw__heist.app
+    crystal_dome_lighting_fix\patches\ep1_mizutani_shion_nomad__technical.app:
+      - ep1\vehicles\appearances\sport\mizutani_shion_nomad__technical.app
+    crystal_dome_lighting_fix\patches\ep1_mahir_supron_kurtz_basic.app:
+      - ep1\vehicles\appearances\standard\mahir_supron_kurtz_basic.app
+    crystal_dome_lighting_fix\patches\ep1_militech_hellhound__basic.app:
       - ep1\vehicles\appearances\standard\militech_hellhound__basic.app
+    crystal_dome_lighting_fix\patches\ep1_thorton_colby_pickup_kurtz.app:
+      - ep1\vehicles\appearances\standard\thorton_colby_pickup_kurtz.app
+    crystal_dome_lighting_fix\patches\ep1_militech_behemoth_basic.app:
+      - ep1\vehicles\appearances\utility\militech_behemoth_basic.app
+    crystal_dome_lighting_fix\patches\ep1_militech_behemoth_police.app:
+      - ep1\vehicles\appearances\utility\militech_behemoth_police.app
