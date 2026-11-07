@@ -56,12 +56,23 @@ SKIP_APPS = {
 # Holograms are see-through by design; an opaque panel would show on them.
 SKIP_APPEARANCE = re.compile(r"holog", re.I)
 
-# On these cars the dark dome layer is the outer window itself, so the stand-in sits just
-# outside the glass. Casting shadows it would drop black patches on the glass in low sun;
-# their see-through window layers already cast the cabin's shadow.
-NO_SHADOW_APPS = {
+# On these cars the dark dome layer is the outer window itself. A stand-in outside it would
+# sit in front of shiny glass, and the glass's own ray-traced reflections would show it as
+# black patches. So here the stand-in sits just inside the glass, where it is what you see
+# from the seat: it takes the dark dome's own metal look, and casts no shadow (the cars'
+# see-through window layers already shade the cabin).
+INSIDE_APPS = {
     r"base\vehicles\appearances\sport\rayfield_aerondight__basic.app",
     r"base\vehicles\appearances\sport\rayfield_caliburn__basic.app",
+}
+
+# metal_base textures copying the dark dome look (crystal_dome_consumer.mi, tiled 5 times like it).
+DOME_TILE = 5
+DOME_TEXTURES = {
+    "BaseColor": r"base\surfaces\materials\metal\steel_galvanized\steel_galvanized_01_300_d.xbm",
+    "Metalness": r"engine\textures\small_white.xbm",
+    "Roughness": r"base\surfaces\materials\metal\steel_galvanized\steel_galvanized_01_300_r.xbm",
+    "Normal": r"base\surfaces\materials\metal\metal_generic\metal_generic_hard_01_300_n.xbm",
 }
 
 
@@ -119,8 +130,17 @@ def depot(p):
     return {"DepotPath": {"$type": "ResourcePath", "$storage": "string", "$value": p}, "Flags": "Default"}
 
 
-def standin_mesh(src):
-    """Same geometry as the panel, every chunk on one plain dark metal_base material."""
+def standin_mesh(src, dome_look=False):
+    """Same geometry as the panel, every chunk on one metal_base material: plain dark and matte,
+    or (dome_look) the dark dome's own metal textures, for stand-ins seen from the seat."""
+    if dome_look:
+        values = [{"$type": "rRef:ITexture", k: depot(p)} for k, p in DOME_TEXTURES.items()]
+        values.append({"$type": "Float", "LayerTile": DOME_TILE})
+    else:
+        values = [
+            {"$type": "Vector4", "BaseColorScale": {"$type": "Vector4", "W": 1, "X": BASE_COLOR, "Y": BASE_COLOR, "Z": BASE_COLOR}},
+            {"$type": "Float", "RoughnessScale": ROUGHNESS},
+        ]
     d = copy.deepcopy(src)
     r = d["Data"]["RootChunk"]
     name = "cdlf_standin"
@@ -139,10 +159,7 @@ def standin_mesh(src):
             "enableMask": 0,
             "metadata": None,
             "resourceVersion": 4,
-            "values": [
-                {"$type": "Vector4", "BaseColorScale": {"$type": "Vector4", "W": 1, "X": BASE_COLOR, "Y": BASE_COLOR, "Z": BASE_COLOR}},
-                {"$type": "Float", "RoughnessScale": ROUGHNESS},
-            ],
+            "values": values,
         },
     }]
     for app in r["appearances"]:
@@ -268,10 +285,20 @@ def main():
 
     # Stand-in meshes, and how far to push each one out (away from the cabin, against its normal).
     offsets = {}
+    # Meshes on the INSIDE_APPS cars go toward the cabin instead (with the dome look); no mesh may be on both kinds.
+    inside = {p["mesh"] for app, per in targets.items() if app in INSIDE_APPS for ps in per.values() for p in ps}
+    outside = {p["mesh"] for app, per in targets.items() if app not in INSIDE_APPS for ps in per.values() for p in ps}
+    if inside & outside:
+        sys.exit(f"meshes used both inside and outside: {sorted(inside & outside)}")
+    missing = INSIDE_APPS - set(targets)
+    if missing:
+        sys.exit(f"INSIDE_APPS not found in the survey: {sorted(missing)}")
     for m in panel_meshes:
-        save(standin_mesh(load(os.path.join(jdir, m) + ".json")), os.path.join(src_json, standin_path(m)) + ".json")
+        save(standin_mesh(load(os.path.join(jdir, m) + ".json"), dome_look=m in inside),
+             os.path.join(src_json, standin_path(m)) + ".json")
         n = glb_mean_normal(os.path.join(glb_dir, os.path.splitext(m)[0] + ".glb"))
-        offsets[m] = tuple(-x * OFFSET for x in n)
+        sign = 1 if m in inside else -1           # the panel's normal points into the cabin
+        offsets[m] = tuple(sign * x * OFFSET for x in n)
 
     names = set()
     summary = []
@@ -289,7 +316,7 @@ def main():
                 name = PREFIX + p["name"]
                 cruid = cruids.setdefault(name, random.getrandbits(63))
                 comps.append(standin_component(by_name[p["name"]], name, standin_path(p["mesh"]), offsets[p["mesh"]], cruid,
-                                               shadows=app not in NO_SHADOW_APPS))
+                                               shadows=app not in INSIDE_APPS))
                 names.add(name)
             # Handle ids must be unique in the file: number the component list and the compiled copy apart.
             for c in comps:
