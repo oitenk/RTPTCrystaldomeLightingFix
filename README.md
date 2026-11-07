@@ -2,7 +2,7 @@
 
 A Cyberpunk 2077 mod for cars with a Crystal Dome. With the dome off, the panels around the cabin look solid, but with ray-traced reflections the cabin still picks up the bright world outside, as if the panels were clear glass. This mod puts a plain, opaque surface just outside each dark panel while the dome is off, so reflections stop there. When you turn the dome on, the surfaces disappear and the see-through look is as before.
 
-Tested on game version 2.5 in the Hellhound, the Weiler, a Nomad car, the Aerondight and the Caliburn, in first person with path tracing and with ray-traced reflections.
+Tested on game version 2.5 in the Hellhound, the Weiler, a Nomad car, the Aerondight and the Caliburn (inside and out), in first person with path tracing and with ray-traced reflections.
 
 ## Covered vehicles
 
